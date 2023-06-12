@@ -31,7 +31,7 @@ const NavBar = () => {
           <NotificationsOutlinedIcon />
           <div className="user">
             <img
-              src="https://cropper.watch.aetnd.com/cdn.watch.aetnd.com/sites/2/2016/11/vikings_4b_cast_ubbe.jpg"
+              src="https://m.media-amazon.com/images/I/61I+RPcXGbL.jpg"
               alt=""
             />
             <span>Ubbe</span>
