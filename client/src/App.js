@@ -6,10 +6,13 @@ import LeftBar from "./components/leftBar/LeftBar.jsx";
 import RightBar from "./components/rightBar/RightBar.jsx";
 import Home from "./pages/home/Home.jsx";
 import Profile from "./pages/profile/Profile.jsx";
+import { useContext } from "react";
+import { AuthContext } from "./context/authContext.js"
 
 function App() {
 
-  const currentUser = true;
+  const currentUser = useContext(AuthContext);
+  console.log(currentUser);
 
   const Layout = () => {
     return (

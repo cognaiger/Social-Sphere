@@ -9,6 +9,7 @@ async function bootstrap() {
     whitelist: true,
     transform: true
   }))
+  app.enableCors();
   await app.listen(2504);
 
   AppDataSource.initialize()
