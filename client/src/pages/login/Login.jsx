@@ -28,6 +28,8 @@ const Login = () => {
         localStorage.setItem('accessToken', accessToken)
 
         navigate("/");
+
+        login();
       } else {
         setMsg("Login fail, please try again");
       }
