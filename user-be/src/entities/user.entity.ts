@@ -6,25 +6,21 @@ export class User {
     id: number
 
     @Column({
-        nullable: false,
         length: 30
     })
     username: string
 
     @Column({
-        nullable: false,
         length: 30
     })
     email: string
 
     @Column({
-        nullable: false,
         length: 100
     })
     pass: string
 
     @Column({
-        nullable: false,
         length: 30
     })
     name: string

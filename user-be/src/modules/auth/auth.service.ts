@@ -1,25 +1,25 @@
 import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { SignupDto } from "./dto/signup.dto";
 import { User } from "src/entities/user.entity";
-import { AppDataSource } from "../database/datasource";
 
 import * as bcrypt from "bcrypt";
 import { LoginDto } from "./dto/login.dto";
 import { JwtService } from "@nestjs/jwt";
+import { UserRepository } from "../database/repositories/user.repository";
 
 @Injectable()
 export class AuthService {
 
     constructor(
+        private readonly userRepository: UserRepository,
         private readonly jwtService: JwtService,
     ) {}
 
     async login(loginDto: LoginDto) {
         const { username, password } = loginDto;
 
-        const userRepository = AppDataSource.getRepository(User);
 
-        const user = await userRepository.findOneBy({
+        const user = await this.userRepository.findOneBy({
             username: username
         })
 
@@ -42,9 +42,8 @@ export class AuthService {
     async signup(signupDto: SignupDto) {
         const { username, email, password, name } = signupDto;
 
-        const userRepository = AppDataSource.getRepository(User);
 
-        const existingUser = await userRepository.findOneBy({
+        const existingUser = await this.userRepository.findOneBy({
             username: username,
         });
 
@@ -61,7 +60,7 @@ export class AuthService {
         user.name = name;
         user.pass = hash;
         user.username = username;
-        await userRepository.save(user);
+        await this.userRepository.save(user);
 
         return true;
     }
