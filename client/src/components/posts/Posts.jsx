@@ -1,7 +1,8 @@
 import "./posts.scss"
 import Post from "../post/Post";
+import axios from "axios";
 
-const Posts = () => {
+function Posts() {
     const posts = [
         {
           id: 1,
@@ -21,6 +22,15 @@ const Posts = () => {
           desc: "Tenetur iste voluptates dolorem rem commodi voluptate pariatur, voluptatum, laboriosam consequatur enim nostrum cumque! Maiores a nam non adipisci minima modi tempore.",
         },
       ];
+
+    axios.get("http://localhost:2504/post/getPost")
+    .then(res => {
+      const post = res.data;
+      posts.push(post);
+    })
+    .catch(error => console.log(error));
+
+    console.log(posts);
 
     return (
         <div className="posts">

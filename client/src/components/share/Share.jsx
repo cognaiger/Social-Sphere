@@ -25,6 +25,8 @@ const Share = () => {
         } else {
             console.log('error');
         }
+
+        setShare('');
     }
 
 

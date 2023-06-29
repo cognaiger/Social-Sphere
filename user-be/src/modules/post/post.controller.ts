@@ -6,9 +6,9 @@ import { CreatePostDto } from "./dto/createPost.dto";
 export class PostController {
     constructor(private readonly postService: PostService) {}
 
-    @Get()
-    showAllPost() {
-        return "show all post";
+    @Get("getPost/:id")
+    async showPostByUserId(@Param('id') id: number) {
+        return this.postService.showPostByUserId(id);
     }
 
     @Post("create")

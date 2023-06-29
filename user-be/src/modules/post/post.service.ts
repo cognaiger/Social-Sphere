@@ -7,8 +7,14 @@ import { Post } from "src/entities/post.entity";
 export class PostService {
     constructor(private readonly postRepo: PostRepository) {}
 
-    showPost() {
+    async showPostByUserId(id: number) {
+        const posts = await this.postRepo.find({
+            where: {
+                userId: id,
+            }
+        });
 
+        return posts;
     }
 
     async createPost(createPostDto: CreatePostDto) {
