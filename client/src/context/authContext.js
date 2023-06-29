@@ -10,7 +10,7 @@ export const AuthContextProvider = ({ children }) => {
 
     const login = () => {
         setCurrentUser({
-            id: 1,
+            id: 5,
             name: "Ubbe",
             profilePic:
                 "https://m.media-amazon.com/images/I/61I+RPcXGbL.jpg"

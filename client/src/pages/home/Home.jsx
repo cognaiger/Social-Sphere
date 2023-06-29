@@ -1,11 +1,13 @@
-import "./home.scss"
-import Stories from "../../components/stories/Stories"
-import Posts from "../../components/posts/Posts"
+import "./home.scss";
+import Stories from "../../components/stories/Stories";
+import Posts from "../../components/posts/Posts";
+import Share from "../../components/share/Share"
 
 const Home = () => {
     return (
         <div>
             <Stories />
+            <Share />
             <Posts />
         </div>
     )

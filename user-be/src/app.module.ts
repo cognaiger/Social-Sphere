@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AuthModule } from './modules/auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './entities/user.entity';
+import { PostModule } from './modules/post/post.module';
 
 @Module({
   imports: [
@@ -22,7 +22,8 @@ import { User } from './entities/user.entity';
         autoLoadEntities: true
       })
     }),
-    AuthModule
+    AuthModule,
+    PostModule
   ],
 })
 export class AppModule {}
