@@ -29,7 +29,10 @@ const Login = () => {
 
         navigate("/");
 
-        login();
+        const name = response.data.name;
+        const profilePic = response.data.profilePic;
+        const id = response.data.id;
+        login(id, name, profilePic);
       } else {
         setMsg("Login fail, please try again");
       }

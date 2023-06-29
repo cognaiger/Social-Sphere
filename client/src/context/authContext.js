@@ -8,12 +8,11 @@ export const AuthContextProvider = ({ children }) => {
         JSON.parse(localStorage.getItem("user") || null)
     );
 
-    const login = () => {
+    const login = (id, name, profilePic) => {
         setCurrentUser({
-            id: 5,
-            name: "Ubbe",
-            profilePic:
-                "https://m.media-amazon.com/images/I/61I+RPcXGbL.jpg"
+            id: id,
+            name: name,
+            profilePic: profilePic
         });
     };
 

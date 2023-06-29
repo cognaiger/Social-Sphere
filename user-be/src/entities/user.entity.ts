@@ -39,4 +39,10 @@ export class User {
         name: "deleted_at"
     })
     deletedAt: Date
+
+    @Column({
+        name: "profilePic",
+        nullable: true
+    })
+    profilePic: string
 }
