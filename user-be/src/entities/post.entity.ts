@@ -1,18 +1,16 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { User } from "./user.entity";
 
 @Entity()
 export class Post {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({
-        name: "user_id"
-    })
-    userId: number
+    @ManyToOne(() => User, (user) => user.posts)
+    user: User
 
     @Column({
-        name: "description",
-        nullable: true
+        name: "description"
     })
     description: string
 
@@ -22,12 +20,14 @@ export class Post {
     createdAt: Date
 
     @UpdateDateColumn({
-        name: "updated_at"
+        name: "updated_at",
+        nullable: true
     })
     updatedAt: Date
 
     @DeleteDateColumn({
-        name: "deleted_at"
+        name: "deleted_at",
+        nullable: true
     })
     deletedAt: Date
 }

@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { ConflictException, Injectable, NotAcceptableException, NotFoundException } from "@nestjs/common";
 import { SignupDto } from "./dto/signup.dto";
 import { User } from "src/entities/user.entity";
 
@@ -18,18 +18,17 @@ export class AuthService {
     async login(loginDto: LoginDto) {
         const { username, password } = loginDto;
 
-
         const user = await this.userRepository.findOneBy({
             username: username
         })
 
         if (!user) {
-            throw new Error("No such user exist");
+            throw new NotFoundException("User not found", { cause: new Error() });
         }
 
-        const isMatch = bcrypt.compare(password, user.pass);
+        const isMatch = await bcrypt.compare(password, user.pass);
         if (!isMatch) {
-            throw new UnauthorizedException;
+            throw new NotAcceptableException("Password is wrong", { cause: new Error() });
         }
 
         const payload = { sub: user.id, username: user.username };
@@ -51,7 +50,7 @@ export class AuthService {
         });
 
         if (existingUser) {
-            throw new Error("Username already exists!");
+            throw new ConflictException("Username already exists!", { cause: new Error() });
         }
 
         // hash password
