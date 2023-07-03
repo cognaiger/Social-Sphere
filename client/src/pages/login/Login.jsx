@@ -4,11 +4,11 @@ import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from '../../context/authContext';
 import axios from 'axios';
 
-const setAuthToken = (token) => {
+export const setAuthToken = (token) => {
   if (token) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   } else {
-    delete axios.defaults.headers.common.Authorization;
+    delete axios.defaults.headers.common["Authorization"];
   }
 }
 
@@ -74,6 +74,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)} />
                 <button onClick={handleLogin}>Login</button>
               </form>
+              {msg}
             </div>
           </div>
         </div>

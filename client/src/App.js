@@ -1,5 +1,5 @@
 import { Outlet, RouterProvider, createBrowserRouter, Navigate } from "react-router-dom";
-import Login from "./pages/login/Login.jsx"
+import Login, { setAuthToken } from "./pages/login/Login.jsx"
 import Register from "./pages/register/Register.jsx";
 import NavBar from "./components/navBar/NavBar.jsx";
 import LeftBar from "./components/leftBar/LeftBar.jsx";
@@ -12,7 +12,8 @@ import { AuthContext } from "./context/authContext.js"
 function App() {
 
   const currentUser = useContext(AuthContext);
-  console.log(currentUser);
+  const token = localStorage.getItem("accessToken");
+  setAuthToken(token);
 
   const Layout = () => {
     return (
