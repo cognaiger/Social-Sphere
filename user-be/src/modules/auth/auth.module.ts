@@ -6,6 +6,7 @@ import { jwtConstant } from 'src/common/constant';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { UserRepository } from '../database/repositories/user.repository';
+import { AuthGuard } from './guard/auth.guard';
 
 @Module({
     imports: [
@@ -19,6 +20,7 @@ import { UserRepository } from '../database/repositories/user.repository';
         ])
     ],
     controllers: [AuthController],
-    providers: [AuthService, UserRepository]
+    providers: [AuthService, UserRepository, AuthGuard],
+    exports: [AuthGuard]
 })
 export class AuthModule {}

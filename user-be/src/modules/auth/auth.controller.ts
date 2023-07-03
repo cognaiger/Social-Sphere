@@ -12,7 +12,7 @@ export class AuthController {
 
     @Post('login')
     async login(@Body() loginDto: LoginDto): Promise<any> {
-        return this.authService.login(loginDto);
+        return this.authService.login(loginDto.username, loginDto.password);
     }
 
     @Post('signup')

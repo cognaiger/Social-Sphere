@@ -4,6 +4,14 @@ import { Link, useNavigate } from "react-router-dom"
 import { AuthContext } from '../../context/authContext';
 import axios from 'axios';
 
+const setAuthToken = (token) => {
+  if (token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  } else {
+    delete axios.defaults.headers.common.Authorization;
+  }
+}
+
 const Login = () => {
   const { login } = useContext(AuthContext);
 
@@ -25,7 +33,9 @@ const Login = () => {
       if (response.status === 201) {
         const accessToken = response.data.access_token;
 
-        localStorage.setItem('accessToken', accessToken)
+        localStorage.setItem('accessToken', accessToken);
+
+        setAuthToken(accessToken);
 
         navigate("/");
 

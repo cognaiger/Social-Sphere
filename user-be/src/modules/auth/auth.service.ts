@@ -15,9 +15,7 @@ export class AuthService {
         private readonly jwtService: JwtService,
     ) {}
 
-    async login(loginDto: LoginDto) {
-        const { username, password } = loginDto;
-
+    async login(username, password): Promise<any> {
         const user = await this.userRepository.findOneBy({
             username: username
         })
