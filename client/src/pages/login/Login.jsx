@@ -37,7 +37,6 @@ const Login = () => {
 
         setAuthToken(accessToken);
 
-        navigate("/");
 
         const name = response.data.name;
         const profilePic = response.data.profilePic;
