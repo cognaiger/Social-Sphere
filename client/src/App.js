@@ -1,5 +1,6 @@
 import { Outlet, Navigate, Routes, Route } from "react-router-dom";
-import Login, { setAuthToken } from "./pages/login/Login.jsx"
+import Login from "./pages/login/Login.jsx"
+import { setAuthToken } from "./context/authContext.js";
 import Register from "./pages/register/Register.jsx";
 import NavBar from "./components/navBar/NavBar.jsx";
 import LeftBar from "./components/leftBar/LeftBar.jsx";
