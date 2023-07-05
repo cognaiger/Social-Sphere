@@ -44,7 +44,7 @@ const Register = () => {
             </p>
             <span>Do you have an account?</span>
             <button>
-              <Link to="/login">Login</Link>
+              <Link to="/login" style={{ textDecoration: "none" }}>Login</Link>
             </button>
           </div>
           <div className="right">
