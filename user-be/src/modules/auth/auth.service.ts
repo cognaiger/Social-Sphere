@@ -29,13 +29,10 @@ export class AuthService {
             throw new NotAcceptableException("Password is wrong", { cause: new Error() });
         }
 
-        const payload = { sub: user.id, username: user.username };
+        const payload = { id: user.id, name: user.name, profilePic: user.profilePic };
 
         return {
             access_token: await this.jwtService.signAsync(payload),
-            id: user.id,
-            name: user.name,
-            profilePic: user.profilePic
         };
     }
 

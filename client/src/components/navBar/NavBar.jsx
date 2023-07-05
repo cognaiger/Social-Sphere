@@ -7,14 +7,23 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { Link } from "react-router-dom";
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
+import { IconButton } from "@mui/material";
 
 
 const NavBar = () => {
 
   const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout= () => {
+    navigate("/login");
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+  }
 
     return (
       <div className="navbar">
@@ -34,12 +43,15 @@ const NavBar = () => {
           <PersonOutlinedIcon />
           <EmailOutlinedIcon />
           <NotificationsOutlinedIcon />
+          <IconButton onClick={handleLogout}>
+            <LogoutIcon />
+          </IconButton>
           <div className="user">
             <img
               src={currentUser.profilePic}
               alt=""
             />
-            <span>Ubbe</span>
+            <span>{currentUser.name}</span>
           </div>
         </div>
       </div>    

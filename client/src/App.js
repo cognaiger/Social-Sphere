@@ -7,12 +7,12 @@ import LeftBar from "./components/leftBar/LeftBar.jsx";
 import RightBar from "./components/rightBar/RightBar.jsx";
 import Home from "./pages/home/Home.jsx";
 import Profile from "./pages/profile/Profile.jsx";
-import { useContext } from "react";
-import { AuthContext } from "./context/authContext.js"
+
+// validate expiration of token
+
 
 function App() {
 
-  const currentUser = useContext(AuthContext);
   const token = localStorage.getItem("accessToken");
   setAuthToken(token);
 
@@ -32,9 +32,9 @@ function App() {
   };
 
   const ProtectedRoute = ({ children }) => {
-    if (!currentUser) {
+    if (token === null) {
       return <Navigate to="/login" />;
-    }
+    } 
 
     return children;
   }
