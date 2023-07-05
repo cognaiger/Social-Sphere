@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
 
-const Share = () => {
+const Share = ({refresh, setRefresh}) => {
 
     const {currentUser} = useContext(AuthContext);
 
@@ -21,9 +21,10 @@ const Share = () => {
         })
 
         if (response.status === 201) {
-            console.log('successful');
+          setRefresh(!refresh);
+          console.log('successful');
         } else {
-            console.log('error');
+          console.log('error');
         }
 
         setShare('');

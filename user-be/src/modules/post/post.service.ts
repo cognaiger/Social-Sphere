@@ -19,7 +19,8 @@ export class PostService {
                                 .from(User, "users")
                                 .leftJoin("users.posts", "post")
                                 .where("users.id = :id", { id: id })
-                                .getRawMany()
+                                .orderBy("post.id", "DESC")
+                                .getRawMany();
 
         return posts;
     }
