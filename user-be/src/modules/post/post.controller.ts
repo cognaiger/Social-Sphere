@@ -19,9 +19,9 @@ export class PostController {
         return this.postService.createPost(createPostDto);
     }
 
-    @UseGuards(AuthGuard)
+    // @UseGuards(AuthGuard)
     @Get(':id')
-    getPostById(@Param('id') id: string) {
-        return "return  post by id";
+    async getPostById(@Param('id') id: number) {
+        return await this.postService.getPostById(id);
     }
 }

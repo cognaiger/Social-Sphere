@@ -1,5 +1,4 @@
 import "./navBar.scss";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
 import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
@@ -31,7 +30,6 @@ const NavBar = () => {
           <Link to="/" style={{ textDecoration: "none" }}>
             <span>Viking Social</span>
           </Link>
-          <HomeOutlinedIcon />
           <DarkModeOutlinedIcon />
           <GridViewOutlinedIcon />
           <div className="search">

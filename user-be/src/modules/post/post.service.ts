@@ -43,4 +43,17 @@ export class PostService {
         await this.postRepo.save(post);
         return true;
     }
+
+    async getPostById(id: number) {
+        const post = await this.postRepo
+                            .createQueryBuilder()
+                            .select(["posts.description as description", "posts.createdAt as createdAt", "users.name as name", 
+                                    "users.profilePic as profilePic"])
+                            .from(Post, "posts")
+                            .leftJoin("posts.user", "users") 
+                            .where("posts.id = :id", { id: id })
+                            .getRawOne();
+
+        return post;
+    }
 }

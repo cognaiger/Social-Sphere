@@ -14,6 +14,11 @@ const Post = ({ post }) => {
   //TEMPORARY
   const liked = false;
 
+  if (post === null) {
+    console.log("404");
+    return "404";
+  }
+
   return (
     <div className="post">
       <div className="container">
