@@ -14,10 +14,32 @@ const Post = ({ post }) => {
   //TEMPORARY
   const liked = false;
 
+  const calTime = (date) => {
+    const createdTime = new Date(date);
+    const createdTimemili = createdTime.getTime();
+    const current = Date.now();
+    const timePassed = (current - createdTimemili) / 1000;
+    if (timePassed < 60) {
+      const s = Math.round(timePassed);
+      return `${s} s ago`;
+    } else if (timePassed < 60 * 60) {
+      const m = Math.round(timePassed / 60);
+      return `${m} min ago`;
+    } else if (timePassed < 60 * 60 * 24) {
+      const h = Math.round(timePassed / 3600);
+      return `${h} h ago`;
+    } else {
+      const d = Math.round(timePassed / 3600 / 24);
+      return `${d} day ago`;
+    }
+  }
+
   if (post === null) {
     console.log("404");
     return "404";
   }
+
+  console.log(post);
 
   return (
     <div className="post">
@@ -35,7 +57,7 @@ const Post = ({ post }) => {
               <Link
                 to={`/posts/${post.id}`}
                 style={{ textDecoration: "none", color: "inherit" }}>
-                <span className="date">1 min ago</span>
+                <span className="date">{calTime(post.createdAt)}</span>
               </Link>
             </div>
           </div>

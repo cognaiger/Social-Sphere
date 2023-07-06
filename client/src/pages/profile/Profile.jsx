@@ -75,7 +75,7 @@ const Profile = () => {
             <MoreVertIcon />
           </div>
         </div>
-      <Posts />
+      {<Posts />}
       </div>
     </div>
   );

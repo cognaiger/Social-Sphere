@@ -15,7 +15,8 @@ export class PostService {
         const posts = await this.userRepo
                                 .createQueryBuilder()
                                 .select(["users.id as userId", "users.name as name", "users.profilePic as profilePic", 
-                                "post.id as id", "post.description as description"])
+                                "post.id as id", "post.description as description", "post.createdAt as createdAt"])
+                                .distinct(true)
                                 .from(User, "users")
                                 .leftJoin("users.posts", "post")
                                 .where("users.id = :id", { id: id })
@@ -40,8 +41,8 @@ export class PostService {
         post.description = description;
         post.user = user;
 
-        await this.postRepo.save(post);
-        return true;
+        const insert = await this.postRepo.save(post);
+        return insert.id;
     }
 
     async getPostById(id: number) {

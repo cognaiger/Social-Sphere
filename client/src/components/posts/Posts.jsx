@@ -6,24 +6,31 @@ import Share from "../share/Share";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
-  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
+    let ignore = false;
+
     async function fetchData() {
       try {
         const res = await axios.get("http://localhost:2504/post/getPost/11");
-        setPosts(res.data);
+        if (!ignore) {
+          setPosts(res.data);
+        }
       } catch(error) {
         console.log(error);
       }
     }
 
     fetchData();
-  })
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
     return (
       <div>
-        <Share refresh={refresh} setRefresh={setRefresh} />
+        <Share posts={posts} setPosts={setPosts} />
         <div className="posts">
             {posts.map(post => (
                 <Post post={post} key={post.id} />

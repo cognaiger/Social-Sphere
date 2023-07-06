@@ -6,11 +6,21 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import axios from "axios";
 
-const Share = ({refresh, setRefresh}) => {
+const Share = ({posts, setPosts}) => {
 
     const {currentUser} = useContext(AuthContext);
 
     const [share, setShare] = useState('');
+
+    async function getPost(id) {
+      const response = await axios.get(`http://localhost:2504/post/${id}`);
+      if (response.status === 200) {
+        const post = response.data;
+        return post;
+      } else {
+        return null;
+      }
+    }
 
     async function handleShare(e) {
         e.preventDefault();
@@ -21,8 +31,11 @@ const Share = ({refresh, setRefresh}) => {
         })
 
         if (response.status === 201) {
-          setRefresh(!refresh);
-          console.log('successful');
+          const newPost = await getPost(response.data);
+          if (newPost !== null) {
+            const newPosts = [newPost, ...posts];
+            setPosts(newPosts);
+          }
         } else {
           console.log('error');
         }
