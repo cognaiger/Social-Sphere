@@ -7,13 +7,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { UserRepository } from '../database/repositories/user.repository';
 import { AuthGuard } from './guard/auth.guard';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
     imports: [
-        JwtModule.register({
-            global: true,
-            secret: jwtConstant.secret,
-            signOptions: { expiresIn: '60s' }
+        JwtModule.registerAsync({
+            useFactory: (configService: ConfigService) => {
+                return {
+                    secret: configService.get<string>('JWTSECRET'),
+                    signOptions: { expiresIn: '4h' },
+                };
+            },
+            inject: [ConfigService],
+            global: true
         }),
         TypeOrmModule.forFeature([
             User
