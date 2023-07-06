@@ -6,11 +6,35 @@ import PinterestIcon from "@mui/icons-material/Pinterest";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Posts from "../../components/posts/Posts"
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const Profile = () => {
-    const { currentUser } = useContext(AuthContext); 
+  const { id } = useParams();
+  const { currentUser } = useContext(AuthContext);
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    const fetch = async () => {
+      const response = await axios.get(`http://localhost:2504/user/${id}`);
+      if (response.status === 200) {
+        setUser(response.data);
+      } else {
+        console.log("User doesn't exist")
+      }
+    }
+
+    if (id === currentUser.id) {
+      setUser(currentUser);
+    } else {
+      fetch();
+    }
+
+
+  }, [id])
+   
 
   return (
     <div className="profile">
@@ -21,7 +45,7 @@ const Profile = () => {
           className="cover"
         />
         <img
-          src={currentUser.profilePic}
+          src={user.profilePic}
           alt=""
           className="profilePic"
         />
@@ -43,7 +67,7 @@ const Profile = () => {
             </a>
           </div>
           <div className="center">
-            <span>{currentUser.name}</span>
+            <span>{user.name}</span>
             <button>follow</button>
           </div>
           <div className="right">
@@ -51,7 +75,7 @@ const Profile = () => {
             <MoreVertIcon />
           </div>
         </div>
-      <Posts/>
+      <Posts />
       </div>
     </div>
   );
