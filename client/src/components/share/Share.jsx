@@ -15,6 +15,7 @@ const Share = ({posts, setPosts}) => {
     const [filedata, setFileData] = useState(null);
     const [errMsg, setErrMsg] = useState('');
     const [isErr, setIsErr] = useState(false);                   // handle right type upload
+    const [isPreview, setIsPreview] = useState(false);
 
     useEffect(() => {
       let fileReader, isCancel = false;
@@ -24,10 +25,12 @@ const Share = ({posts, setPosts}) => {
           const { result } = e.target;
           if (result && !isCancel) {
             setFileData(result);
+            setIsPreview(true);
           }
         }
         fileReader.readAsDataURL(file);
       }
+      console.log(file);
 
       return () => {
         isCancel = true;
@@ -65,10 +68,17 @@ const Share = ({posts, setPosts}) => {
     async function handleShare(e) {
         e.preventDefault();
 
-        const response = await axios.post("http://localhost:2504/post/create", {
-            description: share,
-            userId: currentUser.id,
-            file: file
+        const formData = new FormData();
+        formData.append("description", share);
+        formData.append("userId", currentUser.id);
+        if (file) {
+          formData.append("file", file);
+        }
+
+        const response = await axios.post("http://localhost:2504/post/create", formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
         })
 
         if (response.status === 201) {
@@ -81,6 +91,7 @@ const Share = ({posts, setPosts}) => {
           console.log('error');
         }
 
+        setIsPreview(false);
         setShare('');
     }
 
@@ -96,7 +107,7 @@ const Share = ({posts, setPosts}) => {
           <input type="text" placeholder={`What's on your mind ${currentUser.name}?`} 
           value={share} onChange={(e) => setShare(e.target.value)}/>
         </div>
-        {filedata && 
+        {isPreview && 
         <div className="image-wrapper">
           <img className="image-preview" src={filedata} alt="preview" />
         </div>

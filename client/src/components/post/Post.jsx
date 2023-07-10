@@ -65,7 +65,7 @@ const Post = ({ post }) => {
         </div>
         <div className="content">
           <p>{post.description}</p>
-          <img src={post.img} alt="" />
+          <img src={post.url} alt="" />
         </div>
         <div className="info">
           <div className="item">

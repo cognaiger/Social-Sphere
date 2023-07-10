@@ -30,4 +30,10 @@ export class Post {
         nullable: true
     })
     deletedAt: Date
+
+    @Column({
+        name: "img_url",
+        nullable: true
+    })
+    imgUrl: string
 }
