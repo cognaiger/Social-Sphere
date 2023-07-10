@@ -74,14 +74,15 @@ export class PostService {
     }
 
     async getAllPost() {
-        const posts = await this.postRepo
-                            .createQueryBuilder()
-                            .select(["posts.description as description", "posts.createdAt as createdAt", "posts.imgUrl as url", 
-                "users.name as name", "users.profilePic as profilePic"])
-                            .from(Post, "posts")
-                            .leftJoin("posts.user", "users") 
-                            .getRawMany();
-                    
+        const posts = await this.userRepo
+                        .createQueryBuilder()
+                        .select(["users.id as userId", "users.name as name", "users.profilePic as profilePic", 
+                        "post.id as id", "post.description as description", "post.createdAt as createdAt", "post.imgUrl as url"])
+                        .distinct(true)
+                        .from(User, "users")
+                        .leftJoin("users.posts", "post")
+                        .orderBy("post.id", "DESC")
+                        .getRawMany();
 
         return posts;
     }
