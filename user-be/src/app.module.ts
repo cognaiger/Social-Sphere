@@ -21,7 +21,8 @@ import { UsersModule } from './modules/users/users.module';
         entities: [__dirname + '/**/*.entity.{ts,js}'],
         migrations: [__dirname + 'migrations/*.{ts,js}'],
         autoLoadEntities: true,
-        synchronize: true
+        synchronize: true,
+        logging: true
       })
     }),
     AuthModule,

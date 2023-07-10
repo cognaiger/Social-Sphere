@@ -12,7 +12,7 @@ const Posts = () => {
 
     async function fetchData() {
       try {
-        const res = await axios.get("http://localhost:2504/post/getPost/11");
+        const res = await axios.get("http://localhost:2504/post/all");
         if (!ignore) {
           setPosts(res.data);
         }

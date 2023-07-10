@@ -33,6 +33,11 @@ export class PostController {
         return this.postService.createPost(createPostDto, `${this.SERVER_URL}${file.path}`);
     }
 
+    @Get('all')
+    async getAllPost() {
+        return await this.postService.getAllPost();
+    }
+
     // @UseGuards(AuthGuard)
     @Get(':id')
     async getPostById(@Param('id') id: number) {

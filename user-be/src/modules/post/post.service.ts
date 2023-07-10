@@ -4,7 +4,6 @@ import { CreatePostDto } from "./dto/createPost.dto";
 import { Post } from "src/entities/post.entity";
 import { UserRepository } from "../database/repositories/user.repository";
 import { User } from "src/entities/user.entity";
-import { createQueryBuilder } from "typeorm";
 import { CloudinaryService } from "../file/file.service";
 
 @Injectable()
@@ -63,8 +62,8 @@ export class PostService {
     async getPostById(id: number) {
         const post = await this.postRepo
                             .createQueryBuilder()
-                            .select(["posts.description as description", "posts.createdAt as createdAt", "posts.imgUrl as url", "users.name as name", 
-                                    "users.profilePic as profilePic"])
+                            .select(["posts.description as description", "posts.createdAt as createdAt", "posts.imgUrl as url", 
+                                    "users.name as name", "users.profilePic as profilePic"])
                             .from(Post, "posts")
                             .leftJoin("posts.user", "users") 
                             .where("posts.id = :id", { id: id })
@@ -72,5 +71,18 @@ export class PostService {
 
 
         return post;
+    }
+
+    async getAllPost() {
+        const posts = await this.postRepo
+                            .createQueryBuilder()
+                            .select(["posts.description as description", "posts.createdAt as createdAt", "posts.imgUrl as url", 
+                "users.name as name", "users.profilePic as profilePic"])
+                            .from(Post, "posts")
+                            .leftJoin("posts.user", "users") 
+                            .getRawMany();
+                    
+
+        return posts;
     }
 }
